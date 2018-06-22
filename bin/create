@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+LAST_MEETUP=`cd meetups;ls -d */ | sort -r | head -n 1`
+NEW_MEETUP=`date -v+1m -j -f "%Y_%m/" ${LAST_MEETUP} +%Y_%m`
+mkdir meetups/${NEW_MEETUP}
+
+NEW_MEETUP_PRETTY=`date -j -f "%Y_%m" ${NEW_MEETUP} +%B\ %Y`
+cat <(echo "# ${NEW_MEETUP_PRETTY} Meetup") bin/meetup_template > meetups/${NEW_MEETUP}/README.md
