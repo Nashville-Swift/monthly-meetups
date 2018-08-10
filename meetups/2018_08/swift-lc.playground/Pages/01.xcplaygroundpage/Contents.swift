@@ -195,11 +195,11 @@ toInt(FIVE)
  
  Booleans allow us to make choices. It is either "this" or "that". If true, we do A. If false we do B. If we think of an `if else` statement as a FUNCTION, whenever the input is true, we always do the `if` part and whenever the input is false, we always do the `else` part. We can each "part" of the `if else` condition as a FUNCTION:
  
- if (someBoolean) {
- trueFUNCTION()
- } else {
- falseFUNCTION()
- }
+     if (someBoolean) {
+        trueFUNCTION()
+     } else {
+        falseFUNCTION()
+     }
  
  We know that a boolean is eventually going to be a FUNCTION since everything is FUNCTIONs. When we think about it like this, an `if else` statement is really just a FUNCTION that takes three arguments: a boolean, a true FUNCTION, and a false FUNCTION. So `if else` just takes three "FUNCTIONS".
  
@@ -217,40 +217,36 @@ toInt(FIVE)
 typealias BOOLEAN = (@escaping FUNCTION, @escaping FUNCTION) -> FUNCTION
 
 let TRUE: BOOLEAN = { f1, _ in
-    return { x in
-        f1(x)
-    }
+    return f1
 }
 
 let FALSE: BOOLEAN = { _, f2 in
-    return { x in
-        f2(x)
-    }
+    return f2
 }
 
 let IF: (@escaping BOOLEAN, @escaping FUNCTION, @escaping FUNCTION) -> FUNCTION = { bool, f1, f2 in
     return bool(f1, f2)
 }
 
-IF(
-    TRUE,
-    { x in print("true"); return x },
-    { x in print("false"); return x }
-    )(0)
+/*:
+ Let's test it out...
+ */
 
-IF(
-    TRUE,
-    ONE { $0 as! Int + 1 },
-    TWO { $0 as! Int + 1 }
-    )(0)
-
-let INCREMENT: FUNCTION = { print("INCREMENT"); return $0 }
+let INCREMENT: FUNCTION = { $0 as! Int + 1 }
 
 let lambda_if =
     IF(
-        FALSE,
+        TRUE,
         ADD(THREE, TWO)(INCREMENT),
         TWO(INCREMENT)
 )
 
 lambda_if(0)
+
+/*:
+ Subtraction, multiplication, division, etc can all be implemented as well. However, Swift's type system will put up a good fight because this type of code is neither safe nor elegant. If you want to explore this concept further I suggest using a language like Ruby or Javascript.
+ */
+
+
+
+
