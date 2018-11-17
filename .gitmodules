@@ -1,0 +1,3 @@
+[submodule "meetups/2018_10/talk"]
+	path = meetups/2018_10/talk
+	url = git@github.com:raysarebest/Swift-4.2.git
